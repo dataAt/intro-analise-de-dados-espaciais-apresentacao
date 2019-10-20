@@ -2,6 +2,16 @@
   background-color: white !important;
 }
 
+.imageContainerOpGeomsSpecBuffer {
+  width: 750px;
+  height: 365px;
+}
+
+.imageContainerOpGeoms {
+  width: 820px;
+  height: 260px;
+}
+
 .imageContainerWithExtraBigImage {
   width: 820px;
   height: 480px;

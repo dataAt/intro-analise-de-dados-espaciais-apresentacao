@@ -494,7 +494,7 @@ class: bg-main1
 ### Vamos carregar um arquivo Shapefile como exemplo
 
 ```{python}
-gdf = gpd.read_file("./data/1_estados_do_brasil_shape/Brasil.shp")
+gdf = gpd.read_file("./data/1_estados_do_brasil_shape/abrasil.shp")
 
 print(type(gdf))
 ```
@@ -637,6 +637,196 @@ class: middle bg-main1
 
 --
 ## Todos os métodos apresentados aqui são orientados ao atributo de geometria padrão
+
+---
+class: middle bg-main1
+
+# Manipulação geométrica - area
+
+<br>
+
+<center>
+<div class="imageContainerOpGeoms divWithWhiteBackground">
+  <img src="slide_img/opgeom_area.svg">
+</div>
+</center>
+
+---
+class: bg-main1
+
+# Manipulação geométrica - area
+
+<br>
+
+--
+## Carregando os dados e calculando a área
+
+```{python}
+estados_do_brasil = gpd.read_file("./data/1_estados_do_brasil_shape/abrasil.shp")
+
+estados_do_brasil["area"] = estados_do_brasil.area
+```
+
+--
+## Visualizando o resultado
+
+```{python}
+print(estados_do_brasil["area"].head(5))
+```
+
+.blockquote.font_large[
+A unidade de medidas dos resultados é a mesma do sistema de referência utilizada
+]
+
+---
+class: middle bg-main1
+
+# Manipulação geométrica - bounds
+
+<br>
+
+<center>
+<div class="imageContainerOpGeoms divWithWhiteBackground">
+  <img src="slide_img/opgeom_bounds.svg">
+</div>
+</center>
+
+---
+class: bg-main1
+
+# Manipulação geométrica - bounds
+
+<br><br><br><br><br><br>
+
+```{python}
+print(estados_do_brasil.bounds.head(5))
+```
+
+---
+class: middle bg-main1
+
+# Manipulação geométrica - centroid
+
+<br>
+
+<center>
+<div class="imageContainerOpGeoms divWithWhiteBackground">
+  <img src="slide_img/opgeom_centroid.svg">
+</div>
+</center>
+
+---
+class: bg-main1
+
+# Manipulação geométrica - centroid
+
+--
+## Gerando os centroids
+
+```{python}
+centroids_dos_estados = estados_do_brasil.centroid
+```
+
+--
+## Visualizando os centroids gerados
+
+```
+base = estados_do_brasil.plot()
+centroids_dos_estados.plot(ax=base, marker="o", color="red")
+```
+
+<center>
+```{python, echo = FALSE}
+base = estados_do_brasil.plot(figsize=(4, 4))
+centroids_dos_estados.plot(ax=base, marker="o", color="red")
+```
+</center>
+
+---
+class: bg-main1
+
+# Manipulação geométrica - buffer
+
+<br>
+
+<center>
+<div class="imageContainerOpGeomsSpecBuffer divWithWhiteBackground">
+  <img src="slide_img/opgeom_buffer.svg">
+</div>
+</center>
+
+---
+class: bg-main1
+
+# Manipulação geométrica - buffer
+
+<br><br><br><br><br><br>
+
+## Gerando o buffer
+
+```{python}
+buffers = centroids_dos_estados.buffer(2)
+```
+
+---
+class: middle bg-main1
+
+## Visualizando os buffers, junto aos centroids
+
+```
+base = estados_do_brasil.plot()
+base = buffers.plot(ax = base, color = 'yellow')
+
+# Adicionando os centroids também, para testar =D
+centroids_dos_estados.plot(ax = base, color = 'red')
+```
+
+<center>
+```{python, echo = FALSE}
+base = estados_do_brasil.plot(figsize=(4, 4))
+base = buffers.plot(ax = base, color = 'yellow')
+
+# Adicionando os centroids também, para testar =D
+centroids_dos_estados.plot(ax = base, color = 'red')
+```
+</center>
+
+---
+class: bg-main1
+
+# Manipulação geométrica - envelope
+
+<br>
+
+<center>
+<div class="imageContainerOpGeomsSpecBuffer divWithWhiteBackground">
+  <img src="slide_img/opgeom_envelope.svg">
+</div>
+</center>
+
+---
+class: middle bg-main1
+
+## Gerando os retângulos envolventes
+```{python}
+envelopes = buffers.envelope
+```
+
+## Visualizando 
+
+```
+base = estados_do_brasil.plot()
+
+envelopes.plot(ax = base, color = 'green')
+```
+
+<center>
+```{python, echo = FALSE}
+base = estados_do_brasil.plot(figsize=(4, 4))
+
+envelopes.plot(ax = base, color = 'green')
+```
+</center>
 
 ---
 class: middle bg-main1

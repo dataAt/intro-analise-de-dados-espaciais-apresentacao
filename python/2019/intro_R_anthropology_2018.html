@@ -370,7 +370,7 @@ print(df[df['coluna'] &gt;= 5])
 ---
 class: bg-main1
 
-# GeoPandas 🌐 🐼
+# GeoPandas 🌎 🐼
 
 &lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
 
@@ -635,7 +635,7 @@ class: bg-main1
 
 
 ```python
-gdf = gpd.read_file("./data/1_estados_do_brasil_shape/Brasil.shp")
+gdf = gpd.read_file("./data/1_estados_do_brasil_shape/abrasil.shp")
 
 print(type(gdf))
 ```
@@ -654,11 +654,11 @@ print(gdf.head(5))
 
 ```
 ##     ESTADOS    REGIAO  ...  UF                                           geometry
-## 0      Acre     Norte  ...  AC  POLYGON ((-73.80098 -7.11145, -73.74084 -7.143...
-## 1   Alagoas  Nordeste  ...  AL  MULTIPOLYGON (((-36.39119 -10.50082, -36.39864...
-## 2     Amapá     Norte  ...  AP  MULTIPOLYGON (((-51.37380 -0.37053, -51.37337 ...
-## 3  Amazonas     Norte  ...  AM  POLYGON ((-73.80098 -7.11145, -73.80106 -7.111...
-## 4     Bahia  Nordeste  ...  BA  MULTIPOLYGON (((-46.32975 -13.25248, -46.33072...
+## 0      Acre     Norte  ...  AC  POLYGON ((-73.80155 -7.11182, -73.74141 -7.143...
+## 1   Alagoas  Nordeste  ...  AL  MULTIPOLYGON (((-36.39152 -10.50126, -36.39897...
+## 2    AmapÃ¡     Norte  ...  AP  MULTIPOLYGON (((-51.37425 -0.37088, -51.37382 ...
+## 3  Amazonas     Norte  ...  AM  POLYGON ((-73.80155 -7.11182, -73.80163 -7.111...
+## 4     Bahia  Nordeste  ...  BA  MULTIPOLYGON (((-46.33017 -13.25292, -46.33114...
 ## 
 ## [5 rows x 5 columns]
 ```
@@ -695,11 +695,11 @@ print(gdf["geometry"].head(5))
 ```
 
 ```
-## 0    POLYGON ((-73.80098 -7.11145, -73.74084 -7.143...
-## 1    MULTIPOLYGON (((-36.39119 -10.50082, -36.39864...
-## 2    MULTIPOLYGON (((-51.37380 -0.37053, -51.37337 ...
-## 3    POLYGON ((-73.80098 -7.11145, -73.80106 -7.111...
-## 4    MULTIPOLYGON (((-46.32975 -13.25248, -46.33072...
+## 0    POLYGON ((-73.80155 -7.11182, -73.74141 -7.143...
+## 1    MULTIPOLYGON (((-36.39152 -10.50126, -36.39897...
+## 2    MULTIPOLYGON (((-51.37425 -0.37088, -51.37382 ...
+## 3    POLYGON ((-73.80155 -7.11182, -73.80163 -7.111...
+## 4    MULTIPOLYGON (((-46.33017 -13.25292, -46.33114...
 ## Name: geometry, dtype: geometry
 ```
 
@@ -751,11 +751,11 @@ print(gdf.geometry.head(5))
 ```
 
 ```
-## 0    POLYGON ((-73.80098 -7.11145, -73.74084 -7.143...
-## 1    MULTIPOLYGON (((-36.39119 -10.50082, -36.39864...
-## 2    MULTIPOLYGON (((-51.37380 -0.37053, -51.37337 ...
-## 3    POLYGON ((-73.80098 -7.11145, -73.80106 -7.111...
-## 4    MULTIPOLYGON (((-46.32975 -13.25248, -46.33072...
+## 0    POLYGON ((-73.80155 -7.11182, -73.74141 -7.143...
+## 1    MULTIPOLYGON (((-36.39152 -10.50126, -36.39897...
+## 2    MULTIPOLYGON (((-51.37425 -0.37088, -51.37382 ...
+## 3    POLYGON ((-73.80155 -7.11182, -73.80163 -7.111...
+## 4    MULTIPOLYGON (((-46.33017 -13.25292, -46.33114...
 ## Name: geometria, dtype: geometry
 ```
 
@@ -766,11 +766,11 @@ print(gdf["geometria"].head(5))
 ```
 
 ```
-## 0    POLYGON ((-73.80098 -7.11145, -73.74084 -7.143...
-## 1    MULTIPOLYGON (((-36.39119 -10.50082, -36.39864...
-## 2    MULTIPOLYGON (((-51.37380 -0.37053, -51.37337 ...
-## 3    POLYGON ((-73.80098 -7.11145, -73.80106 -7.111...
-## 4    MULTIPOLYGON (((-46.32975 -13.25248, -46.33072...
+## 0    POLYGON ((-73.80155 -7.11182, -73.74141 -7.143...
+## 1    MULTIPOLYGON (((-36.39152 -10.50126, -36.39897...
+## 2    MULTIPOLYGON (((-51.37425 -0.37088, -51.37382 ...
+## 3    POLYGON ((-73.80155 -7.11182, -73.80163 -7.111...
+## 4    MULTIPOLYGON (((-46.33017 -13.25292, -46.33114...
 ## Name: geometria, dtype: geometry
 ```
 
@@ -847,6 +847,207 @@ class: middle bg-main1
 
 --
 ## Todos os métodos apresentados aqui são orientados ao atributo de geometria padrão
+
+---
+class: middle bg-main1
+
+# Manipulação geométrica - area
+
+&lt;br&gt;
+
+&lt;center&gt;
+&lt;div class="imageContainerOpGeoms divWithWhiteBackground"&gt;
+  &lt;img src="slide_img/opgeom_area.svg"&gt;
+&lt;/div&gt;
+&lt;/center&gt;
+
+---
+class: bg-main1
+
+# Manipulação geométrica - area
+
+&lt;br&gt;
+
+--
+## Carregando os dados e calculando a área
+
+
+```python
+estados_do_brasil = gpd.read_file("./data/1_estados_do_brasil_shape/abrasil.shp")
+
+estados_do_brasil["area"] = estados_do_brasil.area
+```
+
+--
+## Visualizando o resultado
+
+
+```python
+print(estados_do_brasil["area"].head(5))
+```
+
+```
+## 0     12.553222
+## 1      2.286010
+## 2     11.425096
+## 3    128.109609
+## 4     46.911822
+## Name: area, dtype: float64
+```
+
+.blockquote.font_large[
+A unidade de medidas dos resultados é a mesma do sistema de referência utilizada
+]
+
+---
+class: middle bg-main1
+
+# Manipulação geométrica - bounds
+
+&lt;br&gt;
+
+&lt;center&gt;
+&lt;div class="imageContainerOpGeoms divWithWhiteBackground"&gt;
+  &lt;img src="slide_img/opgeom_bounds.svg"&gt;
+&lt;/div&gt;
+&lt;/center&gt;
+
+---
+class: bg-main1
+
+# Manipulação geométrica - bounds
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+
+```python
+print(estados_do_brasil.bounds.head(5))
+```
+
+```
+##         minx       miny       maxx      maxy
+## 0 -73.991514 -11.144878 -66.619875 -7.111822
+## 1 -38.237788 -10.501256 -35.151986 -8.812630
+## 2 -54.876248  -1.236186 -49.876213  4.436806
+## 3 -73.801626  -9.814485 -56.097862  2.246725
+## 4 -46.629446 -18.349522 -37.340267 -8.532688
+```
+
+---
+class: middle bg-main1
+
+# Manipulação geométrica - centroid
+
+&lt;br&gt;
+
+&lt;center&gt;
+&lt;div class="imageContainerOpGeoms divWithWhiteBackground"&gt;
+  &lt;img src="slide_img/opgeom_centroid.svg"&gt;
+&lt;/div&gt;
+&lt;/center&gt;
+
+---
+class: bg-main1
+
+# Manipulação geométrica - centroid
+
+--
+## Gerando os centroids
+
+
+```python
+centroids_dos_estados = estados_do_brasil.centroid
+```
+
+--
+## Visualizando os centroids gerados
+
+```
+base = estados_do_brasil.plot()
+centroids_dos_estados.plot(ax=base, marker="o", color="red")
+```
+
+&lt;center&gt;
+&lt;img src="intro_R_anthropology_2018_files/figure-html/unnamed-chunk-36-1.png" width="384" /&gt;
+&lt;/center&gt;
+
+---
+class: bg-main1
+
+# Manipulação geométrica - buffer
+
+&lt;br&gt;
+
+&lt;center&gt;
+&lt;div class="imageContainerOpGeomsSpecBuffer divWithWhiteBackground"&gt;
+  &lt;img src="slide_img/opgeom_buffer.svg"&gt;
+&lt;/div&gt;
+&lt;/center&gt;
+
+---
+class: bg-main1
+
+# Manipulação geométrica - buffer
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+## Gerando o buffer
+
+
+```python
+buffers = centroids_dos_estados.buffer(2)
+```
+
+---
+class: middle bg-main1
+
+## Visualizando os buffers, junto aos centroids
+
+```
+base = estados_do_brasil.plot()
+base = buffers.plot(ax = base, color = 'yellow')
+
+# Adicionando os centroids também, para testar =D
+centroids_dos_estados.plot(ax = base, color = 'red')
+```
+
+&lt;center&gt;
+&lt;img src="intro_R_anthropology_2018_files/figure-html/unnamed-chunk-38-1.png" width="384" /&gt;
+&lt;/center&gt;
+
+---
+class: bg-main1
+
+# Manipulação geométrica - envelope
+
+&lt;br&gt;
+
+&lt;center&gt;
+&lt;div class="imageContainerOpGeomsSpecBuffer divWithWhiteBackground"&gt;
+  &lt;img src="slide_img/opgeom_envelope.svg"&gt;
+&lt;/div&gt;
+&lt;/center&gt;
+
+---
+class: middle bg-main1
+
+## Gerando os retângulos envolventes
+
+```python
+envelopes = buffers.envelope
+```
+
+## Visualizando 
+
+```
+base = estados_do_brasil.plot()
+
+envelopes.plot(ax = base, color = 'green')
+```
+
+&lt;center&gt;
+&lt;img src="intro_R_anthropology_2018_files/figure-html/unnamed-chunk-40-1.png" width="384" /&gt;
+&lt;/center&gt;
 
 ---
 class: middle bg-main1
