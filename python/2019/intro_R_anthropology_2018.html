@@ -33,6 +33,8 @@ pre {
 ---
 class: bg-main1
 
+
+
 # Agenda
 
 --
@@ -368,7 +370,9 @@ print(df[df['coluna'] &gt;= 5])
 ---
 class: bg-main1
 
-# GeoPandas 🌎 🐼
+# GeoPandas 🌐 🐼
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
 
 .blockquote.font_large[
 GeoPandas é um projeto open-source que busca facilitar o trabalho com dados vetoriais em Python, para isto, tem como base as estruturas de dados do Pandas
@@ -513,6 +517,336 @@ print(gsr)
 .blockquote.font_large[
 Estamos criando pontos sem nenhuma referência espacial, ou seja, são apenas representações em um plano cartesiano
 ]
+
+---
+class: bg-main1
+
+# Explorando as GeoSeries
+
+&lt;br&gt;
+### Vamos visualizar os dados
+
+```
+gsr.plot()
+```
+
+&lt;center&gt;
+&lt;img src="intro_R_anthropology_2018_files/figure-html/unnamed-chunk-18-1.png" width="384" /&gt;
+&lt;/center&gt;
+
+---
+class: middle bg-main1
+
+# As GeoSeries são Series!
+
+--
+### Por herdar diretamente das Series as características básicas dela são mantidas nas .yellow[GeoSeries]
+
+&lt;br&gt;&lt;br&gt;
+
+```python
+gsr = gpd.GeoSeries({
+  'atributo_a': [10, 11, 12],
+  'geometria': [
+    shapely.geometry.Point(1, 1),
+    shapely.geometry.Point(2, 2),
+    shapely.geometry.Point(4, 3)
+  ]
+})
+
+print(gsr)
+```
+
+```
+## atributo_a                               [10, 11, 12]
+## geometria     [POINT (1 1), POINT (2 2), POINT (4 3)]
+## dtype: object
+```
+
+---
+class: middle bg-main1
+
+# Neste caso, utilizamos os .yellow[GeoDataFrames]
+
+---
+class: middle bg-main1
+
+# Os GeoDataFrames são DataFrames!
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+```python
+gsr = gpd.GeoDataFrame({
+  'atributo_a': [10, 11, 12],
+  'geometria': [
+    shapely.geometry.Point(1, 1),
+    shapely.geometry.Point(2, 2),
+    shapely.geometry.Point(4, 3)
+  ]
+})
+
+print(gsr)
+```
+
+```
+##    atributo_a    geometria
+## 0          10  POINT (1 1)
+## 1          11  POINT (2 2)
+## 2          12  POINT (4 3)
+```
+
+---
+class: middle bg-main1
+
+# Fazendo leitura de dados 📜
+
+--
+### O GeoPandas, além das estruturas de dados, disponibiliza forma de leitura dos dados
+
+---
+class: bg-main1
+
+# Fazendo leitura de dados 📜
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+--
+### GeoJSON
+
+--
+### GPSTrackMaker
+
+--
+### ESRI Shapefile
+
+--
+### FileGDB
+
+--
+### OpenFileGDB
+
+---
+class: bg-main1
+
+# Fazendo leitura de dados 📜 - Shapefile
+
+--
+### Vamos carregar um arquivo Shapefile como exemplo
+
+
+```python
+gdf = gpd.read_file("./data/1_estados_do_brasil_shape/Brasil.shp")
+
+print(type(gdf))
+```
+
+```
+## &lt;class 'geopandas.geodataframe.GeoDataFrame'&gt;
+```
+
+--
+### Verificando os dados carregados
+
+
+```python
+print(gdf.head(5))
+```
+
+```
+##     ESTADOS    REGIAO  ...  UF                                           geometry
+## 0      Acre     Norte  ...  AC  POLYGON ((-73.80098 -7.11145, -73.74084 -7.143...
+## 1   Alagoas  Nordeste  ...  AL  MULTIPOLYGON (((-36.39119 -10.50082, -36.39864...
+## 2     Amapá     Norte  ...  AP  MULTIPOLYGON (((-51.37380 -0.37053, -51.37337 ...
+## 3  Amazonas     Norte  ...  AM  POLYGON ((-73.80098 -7.11145, -73.80106 -7.111...
+## 4     Bahia  Nordeste  ...  BA  MULTIPOLYGON (((-46.32975 -13.25248, -46.33072...
+## 
+## [5 rows x 5 columns]
+```
+
+.blockquote.font_large[
+`head` é um exemplo de método que vem do DataFrame
+]
+
+---
+class: bg-main1
+
+# Fazendo leitura de dados 📜 - Shapefile
+
+--
+### Vamos verificar as colunas carregadas
+
+
+```python
+print(gdf.columns)
+```
+
+```
+## Index(['ESTADOS', 'REGIAO', 'COD_UF', 'UF', 'geometry'], dtype='object')
+```
+
+&lt;br&gt;
+
+--
+### Visualizando colunas específicas
+
+
+```python
+print(gdf["geometry"].head(5))
+```
+
+```
+## 0    POLYGON ((-73.80098 -7.11145, -73.74084 -7.143...
+## 1    MULTIPOLYGON (((-36.39119 -10.50082, -36.39864...
+## 2    MULTIPOLYGON (((-51.37380 -0.37053, -51.37337 ...
+## 3    POLYGON ((-73.80098 -7.11145, -73.80106 -7.111...
+## 4    MULTIPOLYGON (((-46.32975 -13.25248, -46.33072...
+## Name: geometry, dtype: geometry
+```
+
+---
+class: bg-main1
+
+# Manipulando a coluna de .yellow[geometrias]
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+--
+### Por padrão uma columa de nome .yellow[geometry] é criado com os dados de geometrias encontrados, mas nada impede que façamos mudanças nela
+
+&lt;br&gt;&lt;br&gt;
+
+--
+### Vamos começar com um teste simples, mudar o nome da coluna
+
+
+```python
+gdf = gdf.rename_geometry("geometria")
+
+print(gdf.columns)
+```
+
+```
+## Index(['ESTADOS', 'REGIAO', 'COD_UF', 'UF', 'geometria'], dtype='object')
+```
+
+---
+class: middle bg-main1
+
+
+## Ao utilizar o método .yellow[rename_geometry] o nome da coluna utilizada como padrão muda para o inserido
+
+---
+class: bg-main1
+
+# Manipulando a coluna de .yellow[geometrias]
+
+&lt;br&gt;&lt;br&gt;
+
+--
+## Consulta ao atributo .yellow[geometry]
+
+
+```python
+print(gdf.geometry.head(5))
+```
+
+```
+## 0    POLYGON ((-73.80098 -7.11145, -73.74084 -7.143...
+## 1    MULTIPOLYGON (((-36.39119 -10.50082, -36.39864...
+## 2    MULTIPOLYGON (((-51.37380 -0.37053, -51.37337 ...
+## 3    POLYGON ((-73.80098 -7.11145, -73.80106 -7.111...
+## 4    MULTIPOLYGON (((-46.32975 -13.25248, -46.33072...
+## Name: geometria, dtype: geometry
+```
+
+--
+
+```python
+print(gdf["geometria"].head(5))
+```
+
+```
+## 0    POLYGON ((-73.80098 -7.11145, -73.74084 -7.143...
+## 1    MULTIPOLYGON (((-36.39119 -10.50082, -36.39864...
+## 2    MULTIPOLYGON (((-51.37380 -0.37053, -51.37337 ...
+## 3    POLYGON ((-73.80098 -7.11145, -73.80106 -7.111...
+## 4    MULTIPOLYGON (((-46.32975 -13.25248, -46.33072...
+## Name: geometria, dtype: geometry
+```
+
+--
+## O atributo faz referência aos dados da coluna .yellow[geometria]
+
+---
+class: bg-main1
+
+# Manipulando a coluna de .yellow[geometrias]
+
+&lt;br&gt;
+
+--
+## Verificando o nome da coluna de onde os dados de geometrias são recuperados
+
+
+```python
+print(gdf.geometry.name)
+```
+
+```
+## geometria
+```
+
+--
+## Vamos fazer um teste, mudar o nome da coluna padrão 
+
+
+```python
+gdf["geometria_dois"] = gdf["geometria"]
+
+print(gdf.columns)
+```
+
+```
+## Index(['ESTADOS', 'REGIAO', 'COD_UF', 'UF', 'geometria', 'geometria_dois'], dtype='object')
+```
+
+--
+
+```python
+gdf = gdf.set_geometry("geometria_dois")
+
+print(gdf.geometry.name)
+```
+
+```
+## geometria_dois
+```
+
+---
+class: bg-main1
+
+# Manipulando a coluna de .yellow[geometrias]
+
+&lt;br&gt;
+
+--
+## Vamos visualizar os dados carregados
+
+```
+gdf.plot()
+```
+
+&lt;center&gt;
+&lt;img src="intro_R_anthropology_2018_files/figure-html/unnamed-chunk-31-1.png" width="384" /&gt;
+&lt;/center&gt;
+
+---
+class: middle bg-main1
+
+# Manipulação geométrica 🎲
+
+--
+## Todos os métodos apresentados aqui são orientados ao atributo de geometria padrão
 
 ---
 class: middle bg-main1

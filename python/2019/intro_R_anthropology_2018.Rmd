@@ -30,6 +30,11 @@ options(htmltools.dir.version = FALSE)
 ---
 class: bg-main1
 
+```{python, echo = FALSE}
+import warnings
+warnings.filterwarnings("ignore")
+```
+
 # Agenda
 
 --
@@ -255,6 +260,8 @@ class: bg-main1
 
 # GeoPandas `r emo::ji("earth")` `r emo::ji("panda_face")`
 
+<br><br><br><br>
+
 .blockquote.font_large[
 GeoPandas é um projeto open-source que busca facilitar o trabalho com dados vetoriais em Python, para isto, tem como base as estruturas de dados do Pandas
 ]
@@ -383,6 +390,253 @@ print(gsr)
 .blockquote.font_large[
 Estamos criando pontos sem nenhuma referência espacial, ou seja, são apenas representações em um plano cartesiano
 ]
+
+---
+class: bg-main1
+
+# Explorando as GeoSeries
+
+<br>
+### Vamos visualizar os dados
+
+```
+gsr.plot()
+```
+
+<center>
+```{python, echo = FALSE}
+gsr.plot(figsize=(4, 4))
+```
+</center>
+
+---
+class: middle bg-main1
+
+# As GeoSeries são Series!
+
+--
+### Por herdar diretamente das Series as características básicas dela são mantidas nas .yellow[GeoSeries]
+
+<br><br>
+```{python}
+gsr = gpd.GeoSeries({
+  'atributo_a': [10, 11, 12],
+  'geometria': [
+    shapely.geometry.Point(1, 1),
+    shapely.geometry.Point(2, 2),
+    shapely.geometry.Point(4, 3)
+  ]
+})
+
+print(gsr)
+```
+
+---
+class: middle bg-main1
+
+# Neste caso, utilizamos os .yellow[GeoDataFrames]
+
+---
+class: middle bg-main1
+
+# Os GeoDataFrames são DataFrames!
+
+<br><br><br><br>
+```{python}
+gsr = gpd.GeoDataFrame({
+  'atributo_a': [10, 11, 12],
+  'geometria': [
+    shapely.geometry.Point(1, 1),
+    shapely.geometry.Point(2, 2),
+    shapely.geometry.Point(4, 3)
+  ]
+})
+
+print(gsr)
+```
+
+---
+class: middle bg-main1
+
+# Fazendo leitura de dados `r emo::ji("scroll")`
+
+--
+### O GeoPandas, além das estruturas de dados, disponibiliza forma de leitura dos dados
+
+---
+class: bg-main1
+
+# Fazendo leitura de dados `r emo::ji("scroll")`
+
+<br><br><br>
+
+--
+### GeoJSON
+
+--
+### GPSTrackMaker
+
+--
+### ESRI Shapefile
+
+--
+### FileGDB
+
+--
+### OpenFileGDB
+
+---
+class: bg-main1
+
+# Fazendo leitura de dados `r emo::ji("scroll")` - Shapefile
+
+--
+### Vamos carregar um arquivo Shapefile como exemplo
+
+```{python}
+gdf = gpd.read_file("./data/1_estados_do_brasil_shape/Brasil.shp")
+
+print(type(gdf))
+```
+
+--
+### Verificando os dados carregados
+
+```{python}
+print(gdf.head(5))
+```
+
+.blockquote.font_large[
+`head` é um exemplo de método que vem do DataFrame
+]
+
+---
+class: bg-main1
+
+# Fazendo leitura de dados `r emo::ji("scroll")` - Shapefile
+
+--
+### Vamos verificar as colunas carregadas
+
+```{python}
+print(gdf.columns)
+```
+
+<br>
+
+--
+### Visualizando colunas específicas
+
+```{python}
+print(gdf["geometry"].head(5))
+```
+
+---
+class: bg-main1
+
+# Manipulando a coluna de .yellow[geometrias]
+
+<br><br><br><br>
+
+--
+### Por padrão uma columa de nome .yellow[geometry] é criado com os dados de geometrias encontrados, mas nada impede que façamos mudanças nela
+
+<br><br>
+
+--
+### Vamos começar com um teste simples, mudar o nome da coluna
+
+```{python}
+gdf = gdf.rename_geometry("geometria")
+
+print(gdf.columns)
+```
+
+---
+class: middle bg-main1
+
+
+## Ao utilizar o método .yellow[rename_geometry] o nome da coluna utilizada como padrão muda para o inserido
+
+---
+class: bg-main1
+
+# Manipulando a coluna de .yellow[geometrias]
+
+<br><br>
+
+--
+## Consulta ao atributo .yellow[geometry]
+
+```{python}
+print(gdf.geometry.head(5))
+```
+
+--
+```{python}
+print(gdf["geometria"].head(5))
+```
+
+--
+## O atributo faz referência aos dados da coluna .yellow[geometria]
+
+---
+class: bg-main1
+
+# Manipulando a coluna de .yellow[geometrias]
+
+<br>
+
+--
+## Verificando o nome da coluna de onde os dados de geometrias são recuperados
+
+```{python}
+print(gdf.geometry.name)
+```
+
+--
+## Vamos fazer um teste, mudar o nome da coluna padrão 
+
+```{python}
+gdf["geometria_dois"] = gdf["geometria"]
+
+print(gdf.columns)
+```
+
+--
+```{python}
+gdf = gdf.set_geometry("geometria_dois")
+
+print(gdf.geometry.name)
+```
+
+---
+class: bg-main1
+
+# Manipulando a coluna de .yellow[geometrias]
+
+<br>
+
+--
+## Vamos visualizar os dados carregados
+
+```
+gdf.plot()
+```
+
+<center>
+```{python, echo = FALSE}
+gdf.plot(figsize=(4, 4))
+```
+</center>
+
+---
+class: middle bg-main1
+
+# Manipulação geométrica `r emo::ji("game_die")`
+
+--
+## Todos os métodos apresentados aqui são orientados ao atributo de geometria padrão
 
 ---
 class: middle bg-main1
