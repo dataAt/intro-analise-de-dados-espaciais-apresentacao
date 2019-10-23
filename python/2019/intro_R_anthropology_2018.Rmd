@@ -1,8 +1,8 @@
 ---
 title: "Introdução à analise de dados espaciais"
 subtitle: "<br> [Material de apoio](https://github.com/dataAt/introducao-analise-de-dados-espaciais)"
-author: "<br>Felipe Carvalho<br>Felipe Menino"
-date: "<br><br>23 de outubro de 2019"
+author: "<br>Adriano Almeida<br>Felipe Carvalho<br>Felipe Menino<br>Helvécio Neto"
+date: "<br>23 de outubro de 2019"
 output:
   xaringan::moon_reader:
     lib_dir: libs
