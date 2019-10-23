@@ -4,6 +4,9 @@ Apresentações criadas utilizando o framework `Sharingan` com o template do [Wi
 
 ## Links das apresentações
 
+- Introdução
+  - [Apresentação de introdução](introducao/apresentacao_cimatech.pdf)
+
 - Apresentações de R
 	- [![Netlify Status](https://api.netlify.com/api/v1/badges/3cda59ed-79a0-454d-8af1-e7e3ca35619c/deploy-status)](https://app.netlify.com/sites/r-ds-sp-2019/deploys) 2019 (CIMATech)[r-ds-sp-2019.netlify.com](https://r-ds-sp-2019.netlify.com/#1)
 - Apresentações de Python
