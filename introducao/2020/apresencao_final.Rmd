@@ -71,18 +71,13 @@ class: title-slide
 <br>
 
 ---
-
 class: title-slide
 
 <br><br><br>
 # .center.font170[Introdução]
----
-# Introdução
----
-# Motivação
+
 ---
 class: title-slide
-
 ## .center.font110[Pacote SF]
 
 
