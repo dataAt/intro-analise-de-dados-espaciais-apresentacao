@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="" xml:lang="">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
   <head>
     <title>Introdução à manipulação de dados espaciais</title>
     <meta charset="utf-8" />
@@ -55,7 +55,7 @@ class: title-slide
 # .center.font170[GeoPandas]
 ---
 
-# GeoPandas 🌐 🐼
+# GeoPandas 🌏 🐼
 
 &lt;br&gt;&lt;br&gt;
 
@@ -672,14 +672,17 @@ class: title-slide
 class: title-slide
 
 &lt;br&gt;&lt;br&gt;&lt;br&gt;
-# .center.font170[Operadores métricos 📐]
+# .center.font170[Outros operadores 📐]
 ---
-# Operadores métricos
+# Outros operadores
 
 &lt;br&gt;
 
-## `st_area` - Área de um tipo geométrico poligonal
-## `st_length` - Comprimento de tipos geométricos 1D (`LINESTRING`)
+### `st_area` - Área de um tipo geométrico poligonal
+### `st_length` - Comprimento de tipos geométricos 1D (`LINESTRING`)
+### `st_area` - Área de um tipo geométrico poligonal
+### `st_buffer` - Devolve uma geometria que representa todos os pontos cuja distância desta geografia é menor ou igual à distância.  (`LINESTRING`)
+### `st_centroid` - Calcula o centro geométrico - o centroide de um objeto espacial.
 ---
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
@@ -728,24 +731,7 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
     deleted = true;
   });
-})();
-// adds .remark-code-has-line-highlighted class to <pre> parent elements
-// of code chunks containing highlighted lines with class .remark-code-line-highlighted
-(function(d) {
-  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
-  const preParents = [];
-  const findPreParent = function(line, p = 0) {
-    if (p > 1) return null; // traverse up no further than grandparent
-    const el = line.parentElement;
-    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
-  };
-
-  for (let line of hlines) {
-    let pre = findPreParent(line);
-    if (pre && !preParents.includes(pre)) preParents.push(pre);
-  }
-  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
-})(document);</script>
+})();</script>
 
 <script>
 (function() {

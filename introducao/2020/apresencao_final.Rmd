@@ -898,12 +898,15 @@ plot(sf::st_as_sfc(sf::st_as_text(linestring_2)), axes = TRUE, col = 'red', main
 class: title-slide
 
 <br><br><br>
-# .center.font170[Operadores métricos `r emo::ji("ruler")`]
+# .center.font170[Outros operadores `r emo::ji("ruler")`]
 ---
-# Operadores métricos
+# Outros operadores
 
 <br>
 
-## `st_area` - Área de um tipo geométrico poligonal
-## `st_length` - Comprimento de tipos geométricos 1D (`LINESTRING`)
----
+### `st_area` - Área de um tipo geométrico poligonal
+### `st_length` - Comprimento de tipos geométricos 1D (`LINESTRING`)
+### `st_area` - Área de um tipo geométrico poligonal
+### `st_buffer` - Devolve uma geometria que representa todos os pontos cuja distância desta geografia é menor ou igual à distância.  (`LINESTRING`)
+### `st_centroid` - Calcula o centro geométrico - o centroide de um objeto espacial.
+
