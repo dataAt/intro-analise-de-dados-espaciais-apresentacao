@@ -63,9 +63,9 @@ class: title-slide
 <br><br>
 - .font120[Introdução]
 
-- .font120[Pacote SF `r anicon::faa("r-project", animate = 'float', speed = 'slow', color = 'steelblue')`]
-
 - .font120[Biblioteca GeoPandas]
+
+- .font120[Pacote SF `r anicon::faa("r-project", animate = 'float', speed = 'slow', color = 'steelblue')`]
 
 - .font120[Prática]
 <br>
@@ -75,38 +75,6 @@ class: title-slide
 
 <br><br><br>
 # .center.font170[Introdução]
-
----
-class: title-slide
-## .center.font110[Pacote SF]
-
-
-```{r fig100, echo=FALSE, fig.align="center", out.height = "50%",out.width = "50%"}
-  knitr::include_graphics("images/2_r_img/sf_pt.png")
-```
-
-.center.font80[Fonte: https://github.com/allisonhorst/stats-illustrations]
----
-# Pacote SF
-
-.font120[Simple Features] ou .font120[Simple Features Access] refere-se a norma (ISO 19125-1:2004) que descreve como os objetos no mundo real podem ser representados em computadores, com ênfase na geometria espacial destes objetos.
-
-```{r fig120, echo=FALSE ,fig.align="center", out.height = "60%",out.width = "60%"}
-  knitr::include_graphics("images/2_r_img/sf_deps.png")
-```
-
----
-# Pacote SF
-
-.font120[Três classes principais do pacote `sf` são:]
-
-- **sfg: simple feature geometry** Único objeto geométrico, por exemplo, `POINT`.
-- **sfc: Simple feature column**  Coluna com um conjunto de objetos geométricos.
-- **sf: Simple feature** Um Data Frame com um ou mais tipos geométricos, em como atributos discretos, categóricos que representam características do objeto.
-
-```{r fig130, echo=FALSE ,fig.align="center", out.height = "65%",out.width = "65%",}
-  knitr::include_graphics("images/2_r_img/sf_xfig.png")
-```
 
 ---
 class: title-slide
@@ -149,6 +117,38 @@ class: title-slide
 .center[
   ![](images/python/relacoes_pandas_e_geopandas.svg)
 ]
+
+---
+class: title-slide
+## .center.font110[Pacote SF]
+
+
+```{r fig100, echo=FALSE, fig.align="center", out.height = "50%",out.width = "50%"}
+  knitr::include_graphics("images/2_r_img/sf_pt.png")
+```
+
+.center.font80[Fonte: https://github.com/allisonhorst/stats-illustrations]
+---
+# Pacote SF
+
+.font120[Simple Features] ou .font120[Simple Features Access] refere-se a norma (ISO 19125-1:2004) que descreve como os objetos no mundo real podem ser representados em computadores, com ênfase na geometria espacial destes objetos.
+
+```{r fig120, echo=FALSE ,fig.align="center", out.height = "60%",out.width = "60%"}
+  knitr::include_graphics("images/2_r_img/sf_deps.png")
+```
+
+---
+# Pacote SF
+
+.font120[Três classes principais do pacote `sf` são:]
+
+- **sfg: simple feature geometry** Único objeto geométrico, por exemplo, `POINT`.
+- **sfc: Simple feature column**  Coluna com um conjunto de objetos geométricos.
+- **sf: Simple feature** Um Data Frame com um ou mais tipos geométricos, em como atributos discretos, categóricos que representam características do objeto.
+
+```{r fig130, echo=FALSE ,fig.align="center", out.height = "65%",out.width = "65%",}
+  knitr::include_graphics("images/2_r_img/sf_xfig.png")
+```
 
 ---
 # Tipos geométricos SF e Shapely
