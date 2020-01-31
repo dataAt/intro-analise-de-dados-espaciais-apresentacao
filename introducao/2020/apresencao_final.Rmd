@@ -111,9 +111,9 @@ class: title-slide
 # Pacote SF
 .font120[Tês classes principais do pacote `sf` são:]
 
-- **sfg:** Único objeto geométrico, por exemplo, `POINT`.
-- **sfc:**  Lista com um conjunto de objetos geométricos.
-- **sf:** Um Data Frame com um ou mais tipos geométricos, em como atributos discretos, categóricos que representam características do objeto.
+- **sfg: simple feature geometry** Único objeto geométrico, por exemplo, `POINT`.
+- **sfc: Simple feature column**  Coluna com um conjunto de objetos geométricos.
+- **sf: Simple feature** Um Data Frame com um ou mais tipos geométricos, em como atributos discretos, categóricos que representam características do objeto.
 
 ```{r fig130, echo=FALSE ,fig.align="center", out.height = "65%",out.width = "65%",}
   knitr::include_graphics("images/2_r_img/sf_xfig.png")
@@ -130,11 +130,184 @@ class: title-slide
 
 ---
 
-# Exemplos de utilização
+# Tipos geométricos SF e Geopandas
+
+.pull-left[
+.center.font100[**SF**]
+
+```{r, echo=FALSE}
+  library(sf)
+```
+.blue.font80[**POINT**]
+```{r}
+ponto <- sf::st_point(c(3,4))
+```
+
+```{r, echo=FALSE}
+  ponto
+```
+.blue.font80[**LINESTRING**]
+```{r}
+  linestring <- sf::st_linestring(
+    rbind(c(2,1), c(4,4), c(8,2), c(4,2))
+  )
+```
+
+```{r, echo=FALSE}
+  linestring
+```
+.blue.font80[**POLYGON**]
+
+```{r}
+  poligono <-  sf::st_polygon(
+    list(rbind(c(2,1), c(1,2), c(1,5), c(5,3), c(2,1)))
+  )
+```
+
+```{r, echo=FALSE}
+  poligono
+```
+
+]
+
+.pull-right[
+.center.font100[**Geopandas**]
+]
+
+---
+# Tipos geométricos SF e Geopandas
+
+
+.pull-left[
+.center.font100[**SF**]
+
+.blue.font80[**MULTIPOINT**]
+```{r}
+multi_ponto <- sf::st_multipoint(
+  rbind(c(2,4), c(1,2), c(3,1), c(4,3), c(3,2))
+)
+```
+
+```{r, echo=FALSE}
+multi_ponto
+```
+.blue.font80[**MULTILINESTRING**]
+```{r}
+multi_linestring <- sf::st_multilinestring(
+  list(
+    rbind(c(1,3), c(4,4), c(5,2), c(3,0),c(1,1)),
+    rbind(c(1,4), c(4,5), c(1,5))
+    )
+  )
+```
+
+```{r, echo=FALSE}
+  multi_linestring
+```
+
+]
+
+.pull-right[
+.center.font100[**Geopandas**]
+]
+---
+
+
+# Tipos geométricos SF e Geopandas
+
+
+.pull-left[
+.center.font100[**SF**]
+
+.blue.font80[**MULTIPOLYGON**]
+```{r}
+  poligono_p1 <- rbind(c(2,3), c(6,1), c(2,1), c(2,3))
+  poligono_p2 <- rbind(c(6,5), c(4,4), c(6,2), c(8,4), c(6,5))
+  poligono_p2_1 <- rbind(c(5,4), c(6,3), c(6,4), c(5,4))
+  
+  multi_poligono <- sf::st_multipolygon(
+    list(
+      list(poligono_p1), list(poligono_p2, poligono_p2_1)))
+```
+
+```{r, echo=FALSE}
+  multi_poligono
+```
+
+.blue.font80[**GEOMETRYCOLLECTION**]
+
+```{r}
+  geometrycollection <- sf::st_geometrycollection(
+    list(multi_ponto, multi_linestring, multi_poligono)
+    )
+```
+]
+
+.pull-right[
+.center.font100[**Geopandas**]
+]
+---
+
+
+# Tipos geométricos SF e Geopandas
+
+
+.pull-left[
+```{r, echo=FALSE, fig.align="center", out.width="100%", out.height="100%"}
+  old_par = par(mfrow = c(1, 3), pty = "s", mar = c(0, 3, 1, 0.3))  
+  
+
+  plot(ponto, col = 'red', main="POINT", axes=TRUE)
+  plot(linestring, col='red', main = "LINESTRING", axes=TRUE)
+  plot(poligono, border='red', col='grey', main="POLYGON", axes=TRUE)
+
+  par(old_par)
+  
+```
+]
+
+.pull-right[
+```{r, echo=FALSE, fig.align="center", out.width="100%", out.height="100%"}
+ old_par = par(mfrow = c(2, 2), pty = "s", mar = c(2, 3, 1, 1))  
+  
+
+  plot(multi_ponto, col = 'red', main="MULTIPOINT", axes=TRUE)
+  plot(multi_linestring, col='red', main = "MULTILINESTRING", axes=TRUE)
+  plot(multi_poligono, border='red', col='grey', main="MULTIPOLYGON", axes=TRUE)
+  plot(geometrycollection, border='grey', col='grey', main="GEOMETRYCOLLECTION", axes=TRUE)
+
+  par(old_par)
+
+```
+]
+---
+# Relacionamentos espaciais
+
+<br> 
+
+### `Equals` - Verifica se duas geométrias são iguais;
+
+### `Disjoint` - Verifica se duas geométrias são disjuntas;
+
+### `Touches` - Verifica se duas geométricas se tocam;
+
+### `Crosses` - Verifica se duas geométricas se cruzam;
+
+### `Within`- Verifica se a geométria A está contida em B;
+
+### `Contains` - Verifica se a geométria B contêm a geometria A;
+
+### `Overleaps` - Verifica se duas geométrias se sobrepõem;
+
+### `Intersects` - Verifica se duas geométricas se interseccionam.
 
 ---
 
 # Prática
+
+.pull-left[]
+
+.pull-right[]
 
 <!-- # Boas bibliotecas de representação geométrica `r emo::ji("milky_way")` -->
 
@@ -198,7 +371,7 @@ class: title-slide
 
 
 <!-- ```{r} -->
-<!--   shp_brazil <- sf::read_sf("data/1_estados_do_brasil_shape/Brasil.shp")   -->
+<!--   shp_brazil <- sf::read_sf("data/1_estados_do_brasil_shape/Brasil.shp") -->
 
 <!--   head(shp_brazil, 4) -->
 <!-- ``` -->
@@ -295,7 +468,7 @@ class: title-slide
 
 <!-- # Relacionanentos espaciais -->
 
-<!-- <br>  -->
+<!-- <br> -->
 
 <!-- -- -->
 
@@ -354,7 +527,7 @@ class: title-slide
 <!-- ``` -->
 <!-- ```{python} -->
 <!--   polygon_a -->
-<!--   polygon_b  -->
+<!--   polygon_b -->
 <!-- ``` -->
 <!-- ] -->
 
@@ -440,7 +613,7 @@ class: title-slide
 <!-- ``` -->
 
 <!-- .pull-left[ -->
-<!-- ```{r}  -->
+<!-- ```{r} -->
 <!--   sf::st_disjoint(linestring_1,linestring_2, sparse = FALSE)[1,] -->
 <!-- ``` -->
 <!-- ] -->
@@ -584,7 +757,7 @@ class: title-slide
 
 <!-- .pull-left[ -->
 <!-- ```{r, echo=TRUE} -->
-<!--   # Criação dos polígonos   -->
+<!--   # Criação dos polígonos -->
 <!--   poligono_1 <- rbind(c(2,2), c(2,4), c(4,4), c(4,2), c(2,2)) -->
 <!--   poligono_2 <- rbind(c(1,1), c(1,5), c(5,5), c(5,1), c(1,1)) -->
 
@@ -594,7 +767,7 @@ class: title-slide
 <!-- ``` -->
 
 <!-- ```{r, echo=FALSE} -->
-<!--   polygon_1  -->
+<!--   polygon_1 -->
 <!--   polygon_2 -->
 
 <!-- ``` -->
@@ -642,7 +815,7 @@ class: title-slide
 <!-- ``` -->
 <!-- ] -->
 
-<!-- ---  -->
+<!-- --- -->
 
 <!-- # Contains -->
 

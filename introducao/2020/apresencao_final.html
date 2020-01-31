@@ -79,9 +79,9 @@ class: title-slide
 # Pacote SF
 .font120[Tês classes principais do pacote `sf` são:]
 
-- **sfg:** Único objeto geométrico, por exemplo, `POINT`.
-- **sfc:**  Lista com um conjunto de objetos geométricos.
-- **sf:** Um Data Frame com um ou mais tipos geométricos, em como atributos discretos, categóricos que representam características do objeto.
+- **sfg: simple feature geometry** Único objeto geométrico, por exemplo, `POINT`.
+- **sfc: Simple feature column**  Coluna com um conjunto de objetos geométricos.
+- **sf: Simple feature** Um Data Frame com um ou mais tipos geométricos, em como atributos discretos, categóricos que representam características do objeto.
 
 &lt;img src="images/2_r_img/sf_xfig.png" width="65%" height="65%" style="display: block; margin: auto;" /&gt;
 
@@ -93,7 +93,134 @@ class: title-slide
 ---
 
 # GeoPandas 🌐 🐼
+
 ---
+
+# Tipos geométricos SF e Geopandas
+
+.pull-left[
+.center.font100[**SF**]
+
+
+.blue.font80[**POINT**]
+
+```r
+ponto &lt;- sf::st_point(c(3,4))
+```
+
+
+.blue.font80[**LINESTRING**]
+
+```r
+  linestring &lt;- sf::st_linestring(
+    rbind(c(2,1), c(4,4), c(8,2), c(4,2))
+  )
+```
+
+
+.blue.font80[**POLYGON**]
+
+
+```r
+  poligono &lt;-  sf::st_polygon(
+    list(rbind(c(2,1), c(1,2), c(1,5), c(5,3), c(2,1)))
+  )
+```
+
+
+
+]
+
+.pull-right[
+.center.font100[**Geopandas**]
+]
+
+---
+# Tipos geométricos SF e Geopandas
+
+
+.pull-left[
+.center.font100[**SF**]
+
+.blue.font80[**MULTIPOINT**]
+
+```r
+multi_ponto &lt;- sf::st_multipoint(
+  rbind(c(2,4), c(1,2), c(3,1), c(4,3), c(3,2))
+)
+```
+
+
+.blue.font80[**MULTILINESTRING**]
+
+```r
+multi_linestring &lt;- sf::st_multilinestring(
+  list(
+    rbind(c(1,3), c(4,4), c(5,2), c(3,0),c(1,1)),
+    rbind(c(1,4), c(4,5), c(1,5))
+    )
+  )
+```
+
+
+
+]
+
+.pull-right[
+.center.font100[**Geopandas**]
+]
+---
+
+
+# Tipos geométricos SF e Geopandas
+
+
+.pull-left[
+.center.font100[**SF**]
+
+.blue.font80[**MULTIPOLYGON**]
+
+```r
+  poligono_p1 &lt;- rbind(c(2,3), c(6,1), c(2,1), c(2,3))
+  poligono_p2 &lt;- rbind(c(6,5), c(4,4), c(6,2), c(8,4), c(6,5))
+  poligono_p2_1 &lt;- rbind(c(5,4), c(6,3), c(6,4), c(5,4))
+  
+  multi_poligono &lt;- sf::st_multipolygon(
+    list(
+      list(poligono_p1), list(poligono_p2, poligono_p2_1)))
+```
+
+
+
+.blue.font80[**GEOMETRYCOLLECTION**]
+
+
+```r
+  geometrycollection &lt;- sf::st_geometrycollection(
+    list(multi_ponto, multi_linestring, multi_poligono)
+    )
+```
+]
+
+.pull-right[
+.center.font100[**Geopandas**]
+]
+---
+
+
+# Tipos geométricos SF e Geopandas
+
+
+.pull-left[
+&lt;img src="apresencao_final_files/figure-html/unnamed-chunk-16-1.png" width="100%" height="100%" style="display: block; margin: auto;" /&gt;
+]
+
+.pull-right[
+&lt;img src="apresencao_final_files/figure-html/unnamed-chunk-17-1.png" width="100%" height="100%" style="display: block; margin: auto;" /&gt;
+]
+---
+
+# Prática
 
 &lt;!-- # Boas bibliotecas de representação geométrica 🌌 --&gt;
 
@@ -157,7 +284,7 @@ class: title-slide
 
 
 &lt;!-- ```{r} --&gt;
-&lt;!--   shp_brazil &lt;- sf::read_sf("data/1_estados_do_brasil_shape/Brasil.shp")   --&gt;
+&lt;!--   shp_brazil &lt;- sf::read_sf("data/1_estados_do_brasil_shape/Brasil.shp") --&gt;
 
 &lt;!--   head(shp_brazil, 4) --&gt;
 &lt;!-- ``` --&gt;
@@ -254,7 +381,7 @@ class: title-slide
 
 &lt;!-- # Relacionanentos espaciais --&gt;
 
-&lt;!-- &lt;br&gt;  --&gt;
+&lt;!-- &lt;br&gt; --&gt;
 
 &lt;!-- -- --&gt;
 
@@ -313,7 +440,7 @@ class: title-slide
 &lt;!-- ``` --&gt;
 &lt;!-- ```{python} --&gt;
 &lt;!--   polygon_a --&gt;
-&lt;!--   polygon_b  --&gt;
+&lt;!--   polygon_b --&gt;
 &lt;!-- ``` --&gt;
 &lt;!-- ] --&gt;
 
@@ -399,7 +526,7 @@ class: title-slide
 &lt;!-- ``` --&gt;
 
 &lt;!-- .pull-left[ --&gt;
-&lt;!-- ```{r}  --&gt;
+&lt;!-- ```{r} --&gt;
 &lt;!--   sf::st_disjoint(linestring_1,linestring_2, sparse = FALSE)[1,] --&gt;
 &lt;!-- ``` --&gt;
 &lt;!-- ] --&gt;
@@ -543,7 +670,7 @@ class: title-slide
 
 &lt;!-- .pull-left[ --&gt;
 &lt;!-- ```{r, echo=TRUE} --&gt;
-&lt;!--   # Criação dos polígonos   --&gt;
+&lt;!--   # Criação dos polígonos --&gt;
 &lt;!--   poligono_1 &lt;- rbind(c(2,2), c(2,4), c(4,4), c(4,2), c(2,2)) --&gt;
 &lt;!--   poligono_2 &lt;- rbind(c(1,1), c(1,5), c(5,5), c(5,1), c(1,1)) --&gt;
 
@@ -553,7 +680,7 @@ class: title-slide
 &lt;!-- ``` --&gt;
 
 &lt;!-- ```{r, echo=FALSE} --&gt;
-&lt;!--   polygon_1  --&gt;
+&lt;!--   polygon_1 --&gt;
 &lt;!--   polygon_2 --&gt;
 
 &lt;!-- ``` --&gt;
@@ -601,7 +728,7 @@ class: title-slide
 &lt;!-- ``` --&gt;
 &lt;!-- ] --&gt;
 
-&lt;!-- ---  --&gt;
+&lt;!-- --- --&gt;
 
 &lt;!-- # Contains --&gt;
 
