@@ -219,8 +219,374 @@ multi_linestring &lt;- sf::st_multilinestring(
 &lt;img src="apresencao_final_files/figure-html/unnamed-chunk-17-1.png" width="100%" height="100%" style="display: block; margin: auto;" /&gt;
 ]
 ---
+# Relacionamentos espaciais
 
-# Prática
+### `Equals` - Verifica se duas geométrias são iguais;
+
+### `Disjoint` - Verifica se duas geométrias são disjuntas;
+
+### `Touches` - Verifica se duas geométricas se tocam;
+
+### `Crosses` - Verifica se duas geométricas se cruzam;
+
+### `Within`- Verifica se a geométria A está contida em B;
+
+### `Contains` - Verifica se a geométria B contêm a geometria A;
+
+### `Overleaps` - Verifica se duas geométrias se sobrepõem;
+
+### `Intersects` - Verifica se duas geométricas se interseccionam.
+
+---
+
+
+class: title-slide
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+# .center.font170[Prática]
+---
+
+# `Equals`
+
+.pull-left[
+
+
+
+&lt;img src="apresencao_final_files/figure-html/unnamed-chunk-19-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+--
+
+.pull-right[
+
+.center.font100[**Solução**]
+
+.blue.font80[**SF**]
+
+
+```r
+  sf::st_equals(polygon_a, polygon_b, sparse = FALSE)[1,]
+```
+
+.blue.font80[**Geopandas**]
+
+
+```python
+  code = 1+1
+```
+
+
+```
+## [1] FALSE
+```
+]
+
+---
+
+# `Disjoint`
+
+.pull-left[
+
+
+
+&lt;img src="apresencao_final_files/figure-html/unnamed-chunk-24-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+--
+
+.pull-right[
+
+.center.font100[**Solução**]
+
+.blue.font80[**SF**]
+
+
+```r
+  sf::st_disjoint(linestring_1,linestring_2, sparse = FALSE)[1,]
+```
+
+.blue.font80[**Geopandas**]
+
+
+```python
+  code = 1+1
+```
+
+
+```
+## [1] TRUE
+```
+]
+
+---
+
+# `Disjoint`
+
+.pull-left[
+
+
+
+&lt;img src="apresencao_final_files/figure-html/unnamed-chunk-29-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+--
+
+.pull-right[
+
+.center.font100[**Solução**]
+
+.blue.font80[**SF**]
+
+
+```r
+   sf::st_disjoint(polygon_1,polygon_2, sparse = FALSE)[1,]
+```
+
+.blue.font80[**Geopandas**]
+
+
+```python
+  code = 1+1
+```
+
+
+```
+## [1] FALSE
+```
+]
+
+---
+
+# `Touches`
+
+.pull-left[
+
+
+
+&lt;img src="apresencao_final_files/figure-html/unnamed-chunk-34-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+--
+
+.pull-right[
+
+.center.font100[**Solução**]
+
+.blue.font80[**SF**]
+
+
+```r
+   sf::st_touches(polygon_1, polygon_2, sparse = FALSE)[1,]
+```
+
+.blue.font80[**Geopandas**]
+
+
+```python
+  code = 1+1
+```
+
+
+```
+## [1] TRUE
+```
+]
+
+---
+
+# `Crosses`
+
+.pull-left[
+
+
+
+&lt;img src="apresencao_final_files/figure-html/unnamed-chunk-39-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+--
+
+.pull-right[
+
+.center.font100[**Solução**]
+
+.blue.font80[**SF**]
+
+
+```r
+   sf::st_touches(polygon_1, polygon_2, sparse = FALSE)[1,]
+```
+
+.blue.font80[**Geopandas**]
+
+
+```python
+  code = 1+1
+```
+
+
+```
+## [1] FALSE
+```
+]
+
+---
+
+# `Crosses`
+
+.pull-left[
+
+
+
+&lt;img src="apresencao_final_files/figure-html/unnamed-chunk-44-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+--
+
+.pull-right[
+
+.center.font100[**Solução**]
+
+.blue.font80[**SF**]
+
+
+```r
+   sf::st_crosses(linestring_1, multipoint_1, sparse = FALSE)[1,]
+```
+
+.blue.font80[**Geopandas**]
+
+
+```python
+  code = 1+1
+```
+
+
+```
+## [1] TRUE
+```
+]
+
+---
+
+
+---
+
+# `Within`
+
+.pull-left[
+
+
+
+&lt;img src="apresencao_final_files/figure-html/unnamed-chunk-49-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+--
+
+.pull-right[
+
+.center.font100[**Solução**]
+
+.blue.font80[**SF**]
+
+
+```r
+   sf::st_within(polygon_1, polygon_2, sparse=FALSE)[1,]
+```
+
+.blue.font80[**Geopandas**]
+
+
+```python
+  code = 1+1
+```
+
+
+```
+## [1] TRUE
+```
+]
+
+---
+
+
+# `Contains`
+
+.pull-left[
+
+
+
+&lt;img src="apresencao_final_files/figure-html/unnamed-chunk-54-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+--
+
+.pull-right[
+
+.center.font100[**Solução**]
+
+.blue.font80[**SF**]
+
+
+```r
+   sf::st_contains(polygon_1, point_1, sparse = FALSE)[1,]
+```
+
+.blue.font80[**Geopandas**]
+
+
+```python
+  code = 1+1
+```
+
+
+```
+## [1] TRUE
+```
+]
+
+---
+
+---
+
+
+# `Overlaps`
+
+.pull-left[
+
+
+
+&lt;img src="apresencao_final_files/figure-html/unnamed-chunk-59-1.png" style="display: block; margin: auto;" /&gt;
+]
+
+--
+
+.pull-right[
+
+.center.font100[**Solução**]
+
+.blue.font80[**SF**]
+
+
+```r
+   sf::st_overlaps(polygon_1, polygon_2, sparse = FALSE)[1,]
+```
+
+.blue.font80[**Geopandas**]
+
+
+```python
+  code = 1+1
+```
+
+
+```
+## [1] TRUE
+```
+]
+
+---
+
+
 
 &lt;!-- # Boas bibliotecas de representação geométrica 🌌 --&gt;
 
